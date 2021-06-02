@@ -1,20 +1,28 @@
 package controller;
 
+import controller.factories.ShapeTypeFactory;
+import controller.interfaces.IUndoable;
 import model.ShapeColor;
 import model.ShapeProperty;
 import model.ShapeShadingType;
 import model.ShapeType;
 import model.interfaces.IApplicationState;
+import model.interfaces.IDrawable;
+import model.shadingTypeStrategies.filledInStrategy;
+import model.shadingTypeStrategies.outlineAndFilledInStrategy;
+import model.shadingTypeStrategies.outlineStrategy;
 import view.interfaces.PaintCanvasBase;
 
 import java.awt.*;
 
-public class DrawShape {
+public class DrawShape implements IUndoable {
 
     private PaintCanvasBase paintCanvasBase;
     private IApplicationState appState;
     private ShapeProperty shapeProperty;
     private Graphics2D graphics2D;
+    private Shape shape;
+
 
     public DrawShape(PaintCanvasBase paintCanvasBase, ShapeProperty shapeProperty) {
         this.paintCanvasBase = paintCanvasBase;
@@ -29,22 +37,33 @@ public class DrawShape {
         ShapeColor primaryColor = shapeProperty.getPrimaryColor();
         ShapeColor secondaryColor = shapeProperty.getSecondaryColor();
 
-        if (shapeShadingType.equals(ShapeShadingType.OUTLINE)) {
+        IDrawable drawable;
 
+        if (shapeShadingType.equals(ShapeShadingType.OUTLINE)) {
+            drawable = new outlineStrategy(shape, primaryColor, secondaryColor, graphics2D);
         }
         else if (shapeShadingType.equals(shapeShadingType.FILLED_IN)) {
-
+            drawable = new filledInStrategy(shape, primaryColor, secondaryColor, graphics2D);
         }
         else if (shapeShadingType.equals(shapeShadingType.OUTLINE_AND_FILLED_IN)) {
-
+            drawable = new outlineAndFilledInStrategy(shape, primaryColor, secondaryColor, graphics2D);
         }
     }
     public void createShape(ShapeProperty shapeProperty) {
-
+        shape = ShapeTypeFactory.build(shapeProperty);
     }
 
     public void draw() {
 
     }
 
+    @Override
+    public void undo() {
+
+    }
+
+    @Override
+    public void redo() {
+
+    }
 }
