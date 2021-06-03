@@ -21,7 +21,7 @@ public class outlineAndFilledInStrategy implements IDrawable {
         this.primaryColor = primaryColor;
         this.secondaryColor = secondaryColor;
         this.shape = shape;
-        this.graphics2D = paintCanvasBase.getGraphics2D();
+        this.graphics2D = graphics2D;
     }
 
     @Override

@@ -37,9 +37,20 @@ public class DrawShape implements IUndoable {
         ShapeColor primaryColor = shapeProperty.getPrimaryColor();
         ShapeColor secondaryColor = shapeProperty.getSecondaryColor();
 
-        IDrawable drawable;
+        IDrawable drawable = null;
 
-        if (shapeShadingType.equals(ShapeShadingType.OUTLINE)) {
+        switch (shapeShadingType) {
+            case OUTLINE:
+                drawable = new outlineStrategy(shape, primaryColor, secondaryColor, graphics2D);
+                break;
+            case FILLED_IN:
+                drawable = new filledInStrategy(shape, primaryColor, secondaryColor, graphics2D);
+                break;
+            case OUTLINE_AND_FILLED_IN:
+                drawable = new outlineAndFilledInStrategy(shape, primaryColor, secondaryColor, graphics2D);
+                break;
+        }
+        /*if (shapeShadingType.equals(ShapeShadingType.OUTLINE)) {
             drawable = new outlineStrategy(shape, primaryColor, secondaryColor, graphics2D);
         }
         else if (shapeShadingType.equals(shapeShadingType.FILLED_IN)) {
@@ -47,7 +58,9 @@ public class DrawShape implements IUndoable {
         }
         else if (shapeShadingType.equals(shapeShadingType.OUTLINE_AND_FILLED_IN)) {
             drawable = new outlineAndFilledInStrategy(shape, primaryColor, secondaryColor, graphics2D);
-        }
+        }*/
+
+        drawable.paintShape();
     }
     public void createShape(ShapeProperty shapeProperty) {
         shape = ShapeTypeFactory.build(shapeProperty);
@@ -55,7 +68,7 @@ public class DrawShape implements IUndoable {
 
     public void draw() {
         paintShape();
-        paintCanvasBase.repaint();
+        //paintCanvasBase.repaint();
     }
 
 

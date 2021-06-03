@@ -21,7 +21,7 @@ public class outlineStrategy implements IDrawable {
         this.shape = shape;
         this.primaryColor = primaryColor;
         this.secondaryColor = secondaryColor;
-        this.graphics2D = paintCanvasBase.getGraphics2D();
+        this.graphics2D = graphics2D;
     }
 
     @Override
