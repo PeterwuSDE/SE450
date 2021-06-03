@@ -21,12 +21,12 @@ public class filledInStrategy implements IDrawable {
         this.primaryColor = primaryColor;
         this.secondaryColor = secondaryColor;
         this.shape = shape;
-        this.graphics2D = paintCanvasBase.getGraphics2D();
+        this.graphics2D = graphics2D;
     }
 
     @Override
     public void paintShape() {
-        graphics2D.setColor(Color.GREEN);
+        graphics2D.setColor(primaryColor.getColor());
         graphics2D.fill(shape);
     }
 }

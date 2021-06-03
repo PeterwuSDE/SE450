@@ -54,8 +54,19 @@ public class DrawShape implements IUndoable {
     }
 
     public void draw() {
-
+        paintShape();
+        paintCanvasBase.repaint();
     }
+
+
+    /*@Override
+    public void create() {
+        //** Clear all selected shapes before drawing new shapes
+        ShapeRepository.selectedCollection.clear();
+
+        paintShapeOnCanvas();
+        ShapeRepository.shapeCollection.add(this);
+    }*/
 
     @Override
     public void undo() {

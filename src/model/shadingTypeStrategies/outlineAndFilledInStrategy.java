@@ -26,8 +26,9 @@ public class outlineAndFilledInStrategy implements IDrawable {
 
     @Override
     public void paintShape() {
-        graphics2D.setColor(Color.GREEN);
+        graphics2D.setColor(primaryColor.getColor());
         graphics2D.draw(shape);
+        graphics2D.setColor(secondaryColor.getColor());
         graphics2D.fill(shape);
     }
 }

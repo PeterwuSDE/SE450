@@ -21,15 +21,17 @@ public class ShapeTypeFactory {
         int height = shapeProperty.getHeight();
         ICreateShapeStrategy createShapeStrategy = null;
 
-        if (shapeProperty.equals(RECTANGLE)) {
-            createShapeStrategy = new CreateRectangleStrategy(x, y, width, height);
+        switch (shapeType) {
+            case RECTANGLE:
+                createShapeStrategy = new CreateRectangleStrategy(x, y, width, height);
+                break;
+            case TRIANGLE:
+                createShapeStrategy = new CreateRectangleStrategy(x, y, width, height);
+                break;
+            case ELLIPSE:
+                createShapeStrategy = new CreateRectangleStrategy(x, y, width, height);
+                break;
         }
-        /*else if (shapeProperty.equals(TRIANGLE)) {
-            createShapeStrategy = new CreateTriangleStrategy(x, y, width, height);
-        }*/
-        /*else if (shapeProperty.equals(ELLIPSE)) {
-            createShapeStrategy = new CreateRectangleStrategy();
-        }*/
 
         return createShapeStrategy.create();
     }

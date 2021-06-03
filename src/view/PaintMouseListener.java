@@ -35,6 +35,8 @@ public class PaintMouseListener implements MouseListener {
     public void mouseReleased(MouseEvent e) {
         endP = e.getPoint();
         mode = new DrawMode(startP, endP, paintCanvasBase, appState);
+        mode.execute();
+        System.out.println(e.getX() + "   " + e.getY());
     }
 
     @Override
