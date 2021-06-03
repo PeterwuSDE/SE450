@@ -1,5 +1,6 @@
 package model.persistence;
 
+import controller.commands.UndoCommand;
 import model.ShapeColor;
 import model.ShapeShadingType;
 import model.ShapeType;
@@ -7,7 +8,9 @@ import model.MouseMode;
 import model.dialogs.DialogProvider;
 import model.interfaces.IApplicationState;
 import model.interfaces.IDialogProvider;
+import model.undoRedo.Undo;
 import view.interfaces.IUiModule;
+import java.awt.*;
 
 public class ApplicationState implements IApplicationState {
     private final IUiModule uiModule;
@@ -18,6 +21,7 @@ public class ApplicationState implements IApplicationState {
     private ShapeColor activeSecondaryColor;
     private ShapeShadingType activeShapeShadingType;
     private MouseMode activeMouseMode;
+    private Shape shape;
 
     public ApplicationState(IUiModule uiModule) {
         this.uiModule = uiModule;
@@ -81,5 +85,17 @@ public class ApplicationState implements IApplicationState {
         activeSecondaryColor = ShapeColor.GREEN;
         activeShapeShadingType = ShapeShadingType.FILLED_IN;
         activeMouseMode = MouseMode.DRAW;
+    }
+
+    @Override
+    public void undo() {
+        Undo undo = new Undo(shape);
+        UndoCommand undoCommand = new UndoCommand(undo);
+        undoCommand.run();
+    }
+
+    @Override
+    public void redo() {
+
     }
 }

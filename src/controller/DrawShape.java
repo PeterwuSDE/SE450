@@ -2,10 +2,7 @@ package controller;
 
 import controller.factories.ShapeTypeFactory;
 import controller.interfaces.IUndoable;
-import model.ShapeColor;
-import model.ShapeProperty;
-import model.ShapeShadingType;
-import model.ShapeType;
+import model.*;
 import model.interfaces.IApplicationState;
 import model.interfaces.IDrawable;
 import model.shadingTypeStrategies.filledInStrategy;
@@ -67,22 +64,21 @@ public class DrawShape implements IUndoable {
     }
 
     public void draw() {
-        paintShape();
+        /*StoredShapeLists.addedShape.add(shape);
+        paintShape();*/
+        //paintCanvasBase.repaint();
+        newShape();
         //paintCanvasBase.repaint();
     }
 
 
-    /*@Override
-    public void create() {
-        //** Clear all selected shapes before drawing new shapes
-        ShapeRepository.selectedCollection.clear();
-
-        paintShapeOnCanvas();
-        ShapeRepository.shapeCollection.add(this);
-    }*/
-
+    public void newShape() {
+        paintShape();
+        StoredShapeLists.addedShape.add(shape);
+    }
     @Override
     public void undo() {
+        StoredShapeLists.addedShape.remove(StoredShapeLists.addedShape.size() - 1);
 
     }
 
