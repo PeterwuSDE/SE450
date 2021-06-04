@@ -6,6 +6,7 @@ import model.*;
 import model.interfaces.IApplicationState;
 import model.interfaces.IDrawable;
 import model.interfaces.IShape;
+import model.shadingTypeStrategies.NullStrategy;
 import model.shadingTypeStrategies.filledInStrategy;
 import model.shadingTypeStrategies.outlineAndFilledInStrategy;
 import model.shadingTypeStrategies.outlineStrategy;
@@ -35,7 +36,7 @@ public class DrawShape implements IUndoable, IShape {
         ShapeColor primaryColor = shapeProperty.getPrimaryColor();
         ShapeColor secondaryColor = shapeProperty.getSecondaryColor();
 
-        IDrawable drawable = null;
+        IDrawable drawable = new NullStrategy();
 
         switch (shapeShadingType) {
             case OUTLINE:
