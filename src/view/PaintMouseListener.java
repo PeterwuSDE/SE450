@@ -1,8 +1,10 @@
 package view;
 
+import model.MouseMode;
 import model.interfaces.IApplicationState;
 import model.interfaces.IMode;
 import model.modes.DrawMode;
+import model.modes.MoveMode;
 import view.interfaces.PaintCanvasBase;
 
 import java.awt.*;
@@ -34,7 +36,19 @@ public class PaintMouseListener implements MouseListener {
     @Override
     public void mouseReleased(MouseEvent e) {
         endP = e.getPoint();
-        mode = new DrawMode(startP, endP, paintCanvasBase, appState);
+        MouseMode mouseMode = appState.getActiveMouseMode();
+        switch (mouseMode) {
+            case DRAW:
+                mode = new DrawMode(startP, endP, paintCanvasBase, appState);
+                break;
+            case MOVE:
+                mode = new MoveMode(startP, endP, paintCanvasBase, appState);
+                break;
+            case SELECT:
+                mode = new DrawMode(startP, endP, paintCanvasBase, appState);
+                break;
+        }
+        //mode = new DrawMode(startP, endP, paintCanvasBase, appState);
         mode.execute();
         //System.out.println(e.getX() + "   " + e.getY());
     }
