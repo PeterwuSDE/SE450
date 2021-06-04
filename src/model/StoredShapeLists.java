@@ -7,5 +7,5 @@ import java.util.List;
 public class StoredShapeLists {
 
     public static final List<Shape> addedShape = new ArrayList<>();
-
+    public static final List<Shape> selectedShape = new ArrayList<>();
 }

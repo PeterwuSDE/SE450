@@ -5,6 +5,7 @@ import model.interfaces.IApplicationState;
 import model.interfaces.IMode;
 import model.modes.DrawMode;
 import model.modes.MoveMode;
+import model.modes.SelectMode;
 import view.interfaces.PaintCanvasBase;
 
 import java.awt.*;
@@ -45,7 +46,7 @@ public class PaintMouseListener implements MouseListener {
                 mode = new MoveMode(startP, endP, paintCanvasBase, appState);
                 break;
             case SELECT:
-                mode = new DrawMode(startP, endP, paintCanvasBase, appState);
+                mode = new SelectMode(startP, endP, paintCanvasBase, appState);
                 break;
         }
         //mode = new DrawMode(startP, endP, paintCanvasBase, appState);
