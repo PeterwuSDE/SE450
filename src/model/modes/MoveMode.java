@@ -3,6 +3,7 @@ package model.modes;
 import controller.DrawShape;
 import controller.MoveShape;
 import controller.commands.DrawShapeCommand;
+import controller.commands.MoveShapeCommand;
 import model.ShapeProperty;
 import model.interfaces.IApplicationState;
 import model.interfaces.IMode;
@@ -30,8 +31,8 @@ public class MoveMode implements IMode {
 
     @Override
     public void execute() {
-        //MoveShape moveShape = new MoveShape(paintCanvasBase, shapeProperty);
-        //MoveShapeCommand moveShapeCommand = new MoveShapeCommand(moveShape);
-        //MoveShapeCommand.run();
+        MoveShape moveShape = new MoveShape(offX, offY, paintCanvasBase);
+        MoveShapeCommand moveShapeCommand = new MoveShapeCommand(moveShape);
+        moveShapeCommand.run();
     }
 }

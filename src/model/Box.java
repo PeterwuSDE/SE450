@@ -1,5 +1,7 @@
 package model;
 
+import model.interfaces.IShape;
+
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
@@ -13,15 +15,29 @@ public class Box {
         this.endP = endP;
     }
 
-    public boolean findOverlap(Shape shape) {
+    public boolean findOverlap(IShape shape) {
         boolean res = false;
 
-        Rectangle2D rect = shape.getBounds2D();
+        ShapeProperty shapeProperty = shape.getShapeProperty();
+        int sX = shapeProperty.getX();
+        int sY = shapeProperty.getY();
+        int sWidth = shapeProperty.getWidth();
+        int sHeight = shapeProperty.getHeight();
 
         int minX = Math.min(startP.x, endP.x);
         int minY = Math.min(startP.y, endP.y);
         int maxX = Math.max(startP.x, endP.x);
         int maxY = Math.max(startP.y, endP.y);
+
+        if (minX < sX + sWidth &&
+                minX + (maxX - minX) > sX &&
+                minY < sY + sHeight &&
+                minY + (maxY - minY) > sY) {
+            res = true;
+        }
+        /*Rectangle2D rect = shape.getBounds2D();
+
+
 
         int width = maxX - minX;
         int height = maxY - minY;

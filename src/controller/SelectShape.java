@@ -2,8 +2,10 @@ package controller;
 
 import controller.interfaces.IUndoable;
 import model.Box;
+import model.ShapeProperty;
 import model.StoredShapeLists;
 import model.interfaces.IApplicationState;
+import model.interfaces.IShape;
 import view.interfaces.PaintCanvasBase;
 
 import java.awt.*;
@@ -25,20 +27,21 @@ public class SelectShape implements IUndoable {
     }
 
     public void select() {
-        StoredShapeLists.selectedShape.clear();
+        StoredShapeLists.selectedIShape.clear();
         Box box = new Box(startP, endP);
-        for (Shape s : StoredShapeLists.addedShape) {
+        for (IShape s : StoredShapeLists.addedIShape) {
             if (box.findOverlap(s)) {
-                StoredShapeLists.selectedShape.add(s);
+                StoredShapeLists.selectedIShape.add(s);
+                //System.out.println(1);
             }
 
         }
-        for (Shape s : StoredShapeLists.selectedShape) {
+        for (IShape s : StoredShapeLists.selectedIShape) {
+            ShapeProperty shapeProperty = s.getShapeProperty();
             graphics2D.setStroke(new BasicStroke(10));
             graphics2D.setColor(Color.BLACK);
-            graphics2D.draw(s);
+            graphics2D.draw(s.getShape());
         }
-        System.out.println("<<-- Shape selected - ShapeRepository.selectedCollection --- " + StoredShapeLists.selectedShape.toString());
 
     }
     @Override

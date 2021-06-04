@@ -5,6 +5,7 @@ import controller.interfaces.IUndoable;
 import model.*;
 import model.interfaces.IApplicationState;
 import model.interfaces.IDrawable;
+import model.interfaces.IShape;
 import model.shadingTypeStrategies.filledInStrategy;
 import model.shadingTypeStrategies.outlineAndFilledInStrategy;
 import model.shadingTypeStrategies.outlineStrategy;
@@ -12,7 +13,7 @@ import view.interfaces.PaintCanvasBase;
 
 import java.awt.*;
 
-public class DrawShape implements IUndoable {
+public class DrawShape implements IUndoable, IShape {
 
     private PaintCanvasBase paintCanvasBase;
     private IApplicationState appState;
@@ -74,16 +75,37 @@ public class DrawShape implements IUndoable {
 
     public void newShape() {
         paintShape();
-        StoredShapeLists.addedShape.add(shape);
+        StoredShapeLists.addedIShape.add(this);
     }
     @Override
     public void undo() {
-        StoredShapeLists.addedShape.remove(StoredShapeLists.addedShape.size() - 1);
+        StoredShapeLists.addedIShape.remove(StoredShapeLists.addedIShape.size() - 1);
 
     }
 
     @Override
     public void redo() {
 
+    }
+
+    @Override
+    public ShapeProperty getShapeProperty() {
+        return shapeProperty;
+    }
+
+    @Override
+    public Shape getShape() {
+        return shape;
+    }
+
+    @Override
+    public void deleteShape() {
+        StoredShapeLists.addedIShape.remove(this);
+        graphics2D.setColor(Color.WHITE);
+        graphics2D.fillRect(0,0, Integer.MAX_VALUE, Integer.MAX_VALUE);
+        /*for (IShape s : StoredShapeLists.addedIShape) {
+            DrawShape drawShape = new DrawShape(paintCanvasBase,shapeProperty);
+            drawShape.draw();
+        }*/
     }
 }
