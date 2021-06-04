@@ -33,6 +33,12 @@ public class SelectShape implements IUndoable {
             }
 
         }
+        for (Shape s : StoredShapeLists.selectedShape) {
+            graphics2D.setStroke(new BasicStroke(10));
+            graphics2D.setColor(Color.BLACK);
+            graphics2D.draw(s);
+        }
+        System.out.println("<<-- Shape selected - ShapeRepository.selectedCollection --- " + StoredShapeLists.selectedShape.toString());
 
     }
     @Override
